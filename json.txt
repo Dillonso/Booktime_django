@@ -1,0 +1,20 @@
+{
+    "count": 2,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 10,
+            "order": "https://127.0.0.1:8000/api/orders/9/",
+            "product": "Uncharted",
+            "status": 10
+
+        },
+        {
+            "id": 11,
+            "order": "https://127.0.0.1:8000/api/orders/9/",
+            "product": "Assasins_creed",
+            "status": 10
+        }
+    ]
+}

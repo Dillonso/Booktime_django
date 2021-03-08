@@ -1,0 +1,46 @@
+h1	{
+    color:purple;
+}
+.purple {
+    color:purple;
+    font-weight: normal;
+}
+
+
+body {
+    font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+    font-size: 100%;
+    margin: 0 20%
+
+
+}
+p {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 0.875em;
+
+    /*border: thin red solid;*/
+
+    margin-top: 0em;
+
+    margin-bottom: 1.5em;
+
+}
+
+h2 {
+    font-size: 1.125em;
+
+    /*border: thin red solid;*/
+
+    margin-bottom: 0em;
+
+    font-weight: lighter;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+#mainnav {
+    background-color: #c2c895;
+
+    height: 40px;
+}
+
