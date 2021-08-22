@@ -12,6 +12,7 @@
 
 </head>
 <body>
+    
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,6 +48,7 @@
         </ul>
     </div>
 </nav>
+
 {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{ message }}</div>
 {% endfor %}
@@ -68,7 +70,7 @@
 {% block js %}
 {% endblock js %}
 
-
+<img src="{% static "images/diam.jpg" %}" alt="BookTime" width="400" height="320">
 </body>
 
 </html>

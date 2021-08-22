@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from rest_framework import routers
 from rest_framework.authtoken import views as authtoken_views
+from rest_framework.authtoken.views import obtain_auth_token
 from main import views
 from main import models
 from main import forms

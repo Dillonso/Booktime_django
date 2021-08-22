@@ -130,8 +130,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'booktimedb',
-        'USER': 'postgres',
-        'PASSWORD': 'emmamazeze',
+        'USER': 'dillon',
+        'PASSWORD': 'emmamazeze1962',
         'HOST' : '127.0.0.1',
         'PORT' : '5432',
     }

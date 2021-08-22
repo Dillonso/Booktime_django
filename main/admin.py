@@ -11,6 +11,8 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 from . import models
 
+logger = logging.getLogger(__name__)
+
 
 # Register your models here.
 
@@ -264,11 +266,11 @@ class ColoredAdminSite(admin.sites.AdminSite):
         return context
 
 
-"""class PeriodSelectForm(forms.Form):
+class PeriodSelectForm(forms.Form):
     PERIODS = ((30, "30 days"), (60, "60 days"), (90, "90 days"))
     period = forms.TypedChoiceField(
         choices=PERIODS, coerce=int, required=True
-    )"""
+    )
 
 
 class ReportingColoredAdminSite(ColoredAdminSite):
@@ -278,7 +280,13 @@ class ReportingColoredAdminSite(ColoredAdminSite):
             path(
                 "orders_per_day/",
                 self.admin_view(self.orders_per_day),
-            )
+            ),
+            path(
+                "most_bought_products/",
+                self.admin_view(self.most_bought_products),
+                name="most_bought_products",
+            ),
+
         ]
         return my_urls + urls
 
@@ -292,7 +300,7 @@ class ReportingColoredAdminSite(ColoredAdminSite):
             .values("day")
             .annotate(c=Count("id"))
         )
-        #logger.info("orders_per_day query: %s", order_data.query)
+        logger.info("orders_per_day query: %s", order_data.query)
         labels = [
             x["day"].strftime("%Y-%m-%d") for x in order_data
         ]
@@ -306,6 +314,42 @@ class ReportingColoredAdminSite(ColoredAdminSite):
         )
         return TemplateResponse(
             request, "orders_per_day.html", context
+        )
+
+    def most_bought_products(self, request):
+        if request.method == "POST":
+            form = PeriodSelectForm(request.POST)
+            if form.is_valid():
+                days = form.cleaned_data["period"]
+                starting_day = datetime.now() - timedelta(
+                    days=days
+                )
+                data = (
+                    models.OrderLine.objects.filter(
+                        order__date_added__gt=starting_day
+                    )
+                    .values("product__name")
+                    .annotate(c=Count("id"))
+                )
+                logger.info(
+                    "most_bought_products query: %s", data.query
+                )
+                labels = [x["product__name"] for x in data]
+                values = [x["c"] for x in data]
+        else:
+            form = PeriodSelectForm()
+            labels = None
+            values = None
+
+        context = dict(
+            self.each_context(request),
+            title="Most bought products",
+            form=form,
+            labels=labels,
+            values=values,
+        )
+        return TemplateResponse(
+            request, "most_bought_products.html", context
         )
 
     
